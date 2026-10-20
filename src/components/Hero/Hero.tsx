@@ -44,7 +44,7 @@ export const Hero: FC = () => {
             fill
             priority={index === 0}
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-[center_40%]"
           />
         </motion.div>
       </AnimatePresence>
@@ -64,7 +64,7 @@ export const Hero: FC = () => {
           Kinira, Thassos
         </motion.p>
         <motion.h1
-          className="mt-3 max-w-3xl font-display text-4xl leading-[1.05] text-white sm:text-6xl md:text-7xl"
+          className="mt-3 max-w-4xl font-display text-3xl leading-[1.1] text-white sm:text-5xl md:text-6xl"
           style={{ textShadow: "0 2px 24px rgba(0,0,0,0.65)" }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

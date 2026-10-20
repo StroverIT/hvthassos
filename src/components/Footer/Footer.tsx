@@ -7,6 +7,8 @@ export const Footer = async () => {
   const t = await getTranslations("nav");
   const tFooter = await getTranslations("footer");
   const tContact = await getTranslations("contact");
+  const tCommon = await getTranslations("common");
+  const tLocation = await getTranslations("location");
 
   return (
     <footer className="bg-[#004d7c] text-foam">
@@ -31,6 +33,14 @@ export const Footer = async () => {
               </a>
             ))}
           </div>
+          <a
+            href={SITE.facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-block text-sm text-sand hover:underline"
+          >
+            Facebook
+          </a>
         </div>
 
         <div>
@@ -51,21 +61,41 @@ export const Footer = async () => {
         </div>
 
         <div>
-          <p className="text-sm text-foam/70">
-            GPS: {SITE.gps.lat}, {SITE.gps.lng}
-          </p>
-          <p className="mt-4 text-xs text-foam/50">
-            © {new Date().getFullYear()} {tFooter("rights")}. {tFooter("license")}:{" "}
-            {SITE.licenseLabel}
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-sand">
+            {tLocation("mapTitle")}
           </p>
           <a
-            href={SITE.facebookUrl}
+            href={SITE.mapUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 inline-block text-sm text-sand hover:underline"
+            className="group relative block aspect-[4/3] overflow-hidden bg-[#003a5c]"
           >
-            Facebook
+            <iframe
+              title={tLocation("mapTitle")}
+              src={SITE.mapEmbedUrl}
+              className="pointer-events-none h-full w-full border-0 opacity-90"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+            <span className="absolute inset-x-0 bottom-0 bg-black/55 px-3 py-2 text-center text-xs font-semibold text-white transition group-hover:bg-[#0064a2]">
+              {tCommon("openInMaps")}
+            </span>
           </a>
+        </div>
+      </div>
+
+      <div className="border-t border-white/15">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-foam/70 md:flex-row md:items-center md:justify-between md:px-8">
+          <p>
+            © {new Date().getFullYear()} {tFooter("rights")}
+          </p>
+          <p className="md:text-right">
+            <span className="text-foam/55">{tFooter("licenseNote")}</span>
+            <span className="mt-1 block font-medium tracking-wide text-sand md:mt-0 md:ml-2 md:inline">
+              {tFooter("license")}: {SITE.licenseLabel}
+            </span>
+          </p>
         </div>
       </div>
     </footer>

@@ -9,17 +9,19 @@ export const SITE = {
     "+359 888524400",
   ],
   gps: {
-    lat: 40.6723619,
-    lng: 24.7602292,
+    lat: 40.6721147,
+    lng: 24.7599915,
   },
   licenseLabel: "0155K112K0106800",
   facebookUrl: "https://www.facebook.com/Holiday-villa-Thassos-1051174558300852/",
-  checkInLabel: "14:00–23:00",
-  checkOutLabel: "07:00–10:30",
+  checkInLabel: "14:00–20:30",
+  checkOutLabel: "until 10:30",
   tourUrl:
     "https://be-there.eu/index.php/vr/holiday-villa-thasos/fullscreen-nobrand/?embedded",
+  mapUrl: "https://maps.app.goo.gl/ShaefshyirTNXCey8",
   mapEmbedUrl:
-    "https://www.google.com/maps?q=40.6723619,24.7602292&z=15&output=embed",
+    "https://www.google.com/maps?q=Holiday+Villa+Thassos,+Kinira,+Thassos&ll=40.6721147,24.7599915&z=17&output=embed",
+  ferriesUrl: "http://dromologia-kavalas-thasou.blogspot.gr/",
 } as const;
 
 export const SEASON_PERIODS = [
@@ -47,13 +49,26 @@ export const HERO_IMAGES = [
 ] as const;
 
 export const STUDIO_IMAGES = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 25, 26,
-].map((n) => `/images/accommodation/studio/studio-${n}.jpg`);
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+].map((n) => `/images/studios/${n}.jpg`);
 
 export const APARTMENT_IMAGES = [
-  1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-].map((n) => `/images/accommodation/apartment/apartment-${n}.jpg`);
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "9.1",
+  "10",
+  "11",
+  "12",
+  "13",
+  "14",
+].map((n) => `/images/apartments/${n}.jpg`);
 
 export const GALLERY_IMAGES = [
   "/images/gallery/DJI_0183-min.jpg",
@@ -104,12 +119,10 @@ export const GALLERY_IMAGES = [
 export const NAV_LINKS = [
   { href: "/", key: "home" },
   { href: "/accommodation", key: "accommodation" },
-  { href: "/services", key: "services" },
   { href: "/reservation", key: "reservation" },
   { href: "/villa-policy", key: "villaPolicy" },
   { href: "/gallery", key: "gallery" },
   { href: "/virtual-tour", key: "virtualTour" },
   { href: "/thassos", key: "thassos" },
-  { href: "/location", key: "location" },
   { href: "/contact", key: "contact" },
 ] as const;
