@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Holiday Villa Thassos
 
-## Getting Started
+Next.js redesign of [hvthassos.com](https://www.hvthassos.com/) — multilingual marketing site, lazy-loaded 3D tour, calendar inquiry form, and an admin panel for inquiries (Supabase Auth + Prisma).
 
-First, run the development server:
+## Stack
+
+- Next.js (App Router) + TypeScript + Tailwind CSS
+- next-intl — EN / BG / GR / RU
+- Supabase PostgreSQL + Prisma
+- Supabase Auth for `/admin`
+- react-day-picker for reservation dates
+- Embedded 3D tour from [be-there.eu](https://be-there.eu/index.php/vr/holiday-villa-thasos/fullscreen-nobrand/?embedded) (click-to-start + IntersectionObserver)
+
+## Setup
+
+### 1. Install
+
+```bash
+npm install
+```
+
+### 2. Environment
+
+Copy `.env.example` to `.env` and fill in values from your Supabase project:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Where to find it |
+|----------|------------------|
+| `DATABASE_URL` | Supabase → Project Settings → Database → Connection string (Transaction / pooler, port 6543) |
+| `DIRECT_URL` | Same, Session mode (port 5432) — optional for migrations |
+| `NEXT_PUBLIC_SUPABASE_URL` | Project Settings → API → Project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Project Settings → API → anon public |
+| `SUPABASE_SERVICE_ROLE_KEY` | Project Settings → API → service_role (keep secret) |
+| `BOOKING_ICAL_URLS` | Booking Extranet → Rates & Availability → Sync calendars → export URL(s), comma-separated |
+| `CRON_SECRET` | Shared secret for `/api/cron/sync-booking` (Vercel Cron uses `Authorization: Bearer …`) |
+
+Also set `DATABASE_URL` in `prisma7.config.ts` via `.env` (already wired).
+
+### Booking.com → site (one-way)
+
+Reservations made on Booking.com block those dates on `/reservation`. Nothing is pushed back to Booking.
+
+1. In Booking Extranet open **Rates & Availability → Sync calendars** and copy each room’s **export** iCal URL.
+2. Put them in `BOOKING_ICAL_URLS` (comma-separated).
+3. Run sync:
+
+```bash
+curl "http://localhost:3000/api/cron/sync-booking?secret=$CRON_SECRET"
+```
+
+On Vercel, `vercel.json` runs this hourly. After `prisma db push`, blocked nights appear grey in the inquiry calendar.
+
+### 3. Database
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+Or with migrations:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+### 4. Admin user
+
+In Supabase Dashboard → Authentication → Users → Add user:
+
+- Email + password for yourself
+- Confirm the user
+
+Sign in at `/admin/login`.
+
+### 5. Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Site: [http://localhost:3000/en](http://localhost:3000/en)
+- Admin: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Path | Description |
+|------|-------------|
+| `/[locale]` | Home |
+| `/[locale]/accommodation` | Studios & apartments |
+| `/[locale]/services` | Services |
+| `/[locale]/reservation` | Prices + inquiry calendar |
+| `/[locale]/villa-policy` | Villa policy |
+| `/[locale]/gallery` | Photo gallery |
+| `/[locale]/virtual-tour` | Lazy 3D tour |
+| `/[locale]/thassos` | Island info |
+| `/[locale]/location` | How to find us |
+| `/[locale]/contact` | Contact form |
+| `/admin` | Inquiries list (auth) |
+| `/admin/inquiries/[id]` | Full inquiry detail |
 
-## Learn More
+Locales: `en`, `bg`, `gr`, `ru`.
 
-To learn more about Next.js, take a look at the following resources:
+## Images
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Photos are stored under `public/images/` (downloaded from the live site). Hero, gallery, and accommodation folders.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Notes
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Inquiries are requests only — no online payment.
+- Season 2026 price cells show “Ask for price” as on the current site.
+- The 3D iframe loads only after the section is in view and the user clicks **Start tour**.

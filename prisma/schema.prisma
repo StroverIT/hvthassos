@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum InquiryStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+model Inquiry {
+  id             String        @id @default(cuid())
+  arrivalDate    DateTime
+  departureDate  DateTime
+  studioCount    Int
+  apartmentCount Int
+  name           String
+  address        String?
+  phone          String?
+  email          String
+  additionalInfo String?
+  status         InquiryStatus @default(NEW)
+  createdAt      DateTime      @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  company   String?
+  phone     String?
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+/// Dates blocked from Booking.com (one-way iCal import). No push back to Booking.
+model BookingBlock {
+  id        String   @id @default(cuid())
+  uid       String   @unique
+  summary   String?
+  startDate DateTime
+  endDate   DateTime
+  sourceUrl String?
+  syncedAt  DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  @@index([startDate, endDate])
+}

@@ -1,26 +1,51 @@
 @import "tailwindcss";
+@import "react-day-picker/style.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-sea: #0064a2;
+  --color-sea-deep: #004d7c;
+  --color-foam: #e8f4f6;
+  --color-sand: #d4c4a8;
+  --color-olive: #5c6b3a;
+  --color-olive-light: #8a9a5b;
+  --color-ink: #1a2a2e;
+  --color-muted: #5a6d72;
+  --color-surface: #f7f5f0;
+  --background: var(--color-surface);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sea: var(--color-sea);
+  --color-sea-deep: var(--color-sea-deep);
+  --color-foam: var(--color-foam);
+  --color-sand: var(--color-sand);
+  --color-olive: var(--color-olive);
+  --color-olive-light: var(--color-olive-light);
+  --color-ink: var(--color-ink);
+  --color-muted: var(--color-muted);
+  --color-surface: var(--color-surface);
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-fraunces);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-sea) 25%, transparent);
+}
+
+.rdp-root {
+  --rdp-accent-color: var(--color-sea);
+  --rdp-accent-background-color: color-mix(in srgb, var(--color-sea) 15%, white);
 }
