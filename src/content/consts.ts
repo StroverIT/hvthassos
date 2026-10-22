@@ -14,6 +14,7 @@ export const SITE = {
   },
   licenseLabel: "0155K112K0106800",
   facebookUrl: "https://www.facebook.com/Holiday-villa-Thassos-1051174558300852/",
+  instagramUrl: "https://www.instagram.com/holiday_villa_thassos/",
   checkInLabel: "14:00–20:30",
   checkOutLabel: "until 10:30",
   tourUrl:

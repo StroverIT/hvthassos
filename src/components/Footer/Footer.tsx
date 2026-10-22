@@ -33,14 +33,24 @@ export const Footer = async () => {
               </a>
             ))}
           </div>
-          <a
-            href={SITE.facebookUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-block text-sm text-sand hover:underline"
-          >
-            Facebook
-          </a>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            <a
+              href={SITE.facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sand hover:underline"
+            >
+              Facebook
+            </a>
+            <a
+              href={SITE.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sand hover:underline"
+            >
+              Instagram
+            </a>
+          </div>
         </div>
 
         <div>
