@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import { buildContactMail, sendMail } from "@/lib/mail";
 import { prisma } from "@/lib/prisma";
 
 const contactSchema = z.object({
@@ -35,8 +36,15 @@ export const createContactMessage = async (
         message: parsed.data.message,
       },
     });
-    return { ok: true };
   } catch {
     return { ok: false, error: "server" };
   }
+
+  try {
+    await sendMail(buildContactMail(parsed.data));
+  } catch (error) {
+    console.error("Failed to send contact email:", error);
+  }
+
+  return { ok: true };
 };

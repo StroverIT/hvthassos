@@ -1,8 +1,9 @@
 "use server";
 
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
 import { rangeOverlapsBookingBlock } from "@/lib/booking-ical";
+import { buildInquiryMail, sendMail } from "@/lib/mail";
+import { prisma } from "@/lib/prisma";
 
 const inquirySchema = z.object({
   arrivalDate: z.string().min(1),
@@ -48,22 +49,31 @@ export const createInquiry = async (
     return { ok: false, error: "unavailable" };
   }
 
+  const inquiryPayload = {
+    arrivalDate: arrival,
+    departureDate: departure,
+    studioCount: data.studioCount,
+    apartmentCount: data.apartmentCount,
+    name: data.name,
+    address: data.address || null,
+    phone: data.phone || null,
+    email: data.email,
+    additionalInfo: data.additionalInfo || null,
+  };
+
   try {
     await prisma.inquiry.create({
-      data: {
-        arrivalDate: arrival,
-        departureDate: departure,
-        studioCount: data.studioCount,
-        apartmentCount: data.apartmentCount,
-        name: data.name,
-        address: data.address || null,
-        phone: data.phone || null,
-        email: data.email,
-        additionalInfo: data.additionalInfo || null,
-      },
+      data: inquiryPayload,
     });
-    return { ok: true };
   } catch {
     return { ok: false, error: "server" };
   }
+
+  try {
+    await sendMail(buildInquiryMail(inquiryPayload));
+  } catch (error) {
+    console.error("Failed to send inquiry email:", error);
+  }
+
+  return { ok: true };
 };
