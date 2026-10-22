@@ -11,10 +11,8 @@ export const ContactForm: FC = () => {
   );
   const [form, setForm] = useState({
     name: "",
-    company: "",
     phone: "",
     email: "",
-    subject: "",
     message: "",
   });
 
@@ -26,10 +24,8 @@ export const ContactForm: FC = () => {
     if (result.ok) {
       setForm({
         name: "",
-        company: "",
         phone: "",
         email: "",
-        subject: "",
         message: "",
       });
     }
@@ -61,14 +57,6 @@ export const ContactForm: FC = () => {
           />
         </label>
         <label>
-          <span className={labelClass}>{t("company")}</span>
-          <input
-            className={fieldClass}
-            value={form.company}
-            onChange={(e) => setForm((p) => ({ ...p, company: e.target.value }))}
-          />
-        </label>
-        <label>
           <span className={labelClass}>{t("phone")}</span>
           <input
             type="tel"
@@ -77,7 +65,7 @@ export const ContactForm: FC = () => {
             onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
           />
         </label>
-        <label>
+        <label className="sm:col-span-2">
           <span className={labelClass}>{t("email")} *</span>
           <input
             required
@@ -85,15 +73,6 @@ export const ContactForm: FC = () => {
             className={fieldClass}
             value={form.email}
             onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-          />
-        </label>
-        <label className="sm:col-span-2">
-          <span className={labelClass}>{t("subject")} *</span>
-          <input
-            required
-            className={fieldClass}
-            value={form.subject}
-            onChange={(e) => setForm((p) => ({ ...p, subject: e.target.value }))}
           />
         </label>
         <label className="sm:col-span-2">

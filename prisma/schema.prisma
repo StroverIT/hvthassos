@@ -31,7 +31,6 @@ model Inquiry {
 model ContactMessage {
   id        String   @id @default(cuid())
   name      String
-  company   String?
   phone     String?
   email     String
   subject   String

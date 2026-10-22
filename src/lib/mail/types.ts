@@ -7,10 +7,8 @@ export type TSendMailInput = {
 
 export type TContactMailPayload = {
   name: string;
-  company?: string | null;
   phone?: string | null;
   email: string;
-  subject: string;
   message: string;
 };
 
@@ -20,7 +18,6 @@ export type TInquiryMailPayload = {
   studioCount: number;
   apartmentCount: number;
   name: string;
-  address?: string | null;
   phone?: string | null;
   email: string;
   additionalInfo?: string | null;

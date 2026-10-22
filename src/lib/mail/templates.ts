@@ -34,14 +34,12 @@ const wrapTable = (title: string, rows: string): string =>
   </div>`;
 
 export const buildContactMail = (payload: TContactMailPayload) => {
-  const subject = `${CONTENT.contactSubjectPrefixLabel}: ${payload.subject}`;
+  const subject = `${CONTENT.contactSubjectPrefixLabel}: ${payload.name}`;
 
   const fields: Array<[string, string]> = [
     [CONTENT.contactNameLabel, payload.name],
-    [CONTENT.contactCompanyLabel, display(payload.company)],
     [CONTENT.contactPhoneLabel, display(payload.phone)],
     [CONTENT.contactEmailLabel, payload.email],
-    [CONTENT.contactSubjectLabel, payload.subject],
     [CONTENT.contactMessageLabel, payload.message],
   ];
 
@@ -61,7 +59,6 @@ export const buildInquiryMail = (payload: TInquiryMailPayload) => {
     [CONTENT.inquiryNameLabel, payload.name],
     [CONTENT.inquiryEmailLabel, payload.email],
     [CONTENT.inquiryPhoneLabel, display(payload.phone)],
-    [CONTENT.inquiryAddressLabel, display(payload.address)],
     [CONTENT.inquiryArrivalLabel, formatDate(payload.arrivalDate)],
     [CONTENT.inquiryDepartureLabel, formatDate(payload.departureDate)],
     [CONTENT.inquiryStudiosLabel, String(payload.studioCount)],

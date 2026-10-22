@@ -4,12 +4,12 @@ import { z } from "zod";
 import { buildContactMail, sendMail } from "@/lib/mail";
 import { prisma } from "@/lib/prisma";
 
+const DEFAULT_SUBJECT = "Съобщение от контактната форма";
+
 const contactSchema = z.object({
   name: z.string().min(2).max(120),
-  company: z.string().max(120).optional(),
   phone: z.string().max(40).optional(),
   email: z.string().email(),
-  subject: z.string().min(2).max(200),
   message: z.string().min(5).max(4000),
 });
 
@@ -20,8 +20,12 @@ export type TContactResult =
 export const createContactMessage = async (
   input: z.infer<typeof contactSchema>,
 ): Promise<TContactResult> => {
-  const parsed = contactSchema.safeParse(input);
+  const parsed = contactSchema.safeParse({
+    ...input,
+    phone: input.phone?.trim() || undefined,
+  });
   if (!parsed.success) {
+    console.error("Contact validation failed:", parsed.error.flatten());
     return { ok: false, error: "validation" };
   }
 
@@ -29,14 +33,14 @@ export const createContactMessage = async (
     await prisma.contactMessage.create({
       data: {
         name: parsed.data.name,
-        company: parsed.data.company || null,
         phone: parsed.data.phone || null,
         email: parsed.data.email,
-        subject: parsed.data.subject,
+        subject: DEFAULT_SUBJECT,
         message: parsed.data.message,
       },
     });
-  } catch {
+  } catch (error) {
+    console.error("Failed to save contact message:", error);
     return { ok: false, error: "server" };
   }
 

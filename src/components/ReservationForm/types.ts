@@ -4,7 +4,6 @@ export type TReservationFormState = {
   studioCount: number;
   apartmentCount: number;
   name: string;
-  address: string;
   phone: string;
   email: string;
   additionalInfo: string;

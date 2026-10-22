@@ -14,7 +14,6 @@ const initialState: TReservationFormState = {
   studioCount: 1,
   apartmentCount: 0,
   name: "",
-  address: "",
   phone: "",
   email: "",
   additionalInfo: "",
@@ -152,14 +151,6 @@ export const ReservationForm: FC<TReservationFormProps> = ({
           />
         </label>
         <label>
-          <span className={labelClass}>{t("address")}</span>
-          <input
-            className={fieldClass}
-            value={form.address}
-            onChange={(e) => setForm((p) => ({ ...p, address: e.target.value }))}
-          />
-        </label>
-        <label>
           <span className={labelClass}>{t("phone")}</span>
           <input
             type="tel"
@@ -168,7 +159,7 @@ export const ReservationForm: FC<TReservationFormProps> = ({
             onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
           />
         </label>
-        <label className="sm:col-span-2">
+        <label>
           <span className={labelClass}>
             {t("email")} <span className="text-olive">*</span>
           </span>
