@@ -151,8 +151,11 @@ export const ReservationForm: FC<TReservationFormProps> = ({
           />
         </label>
         <label>
-          <span className={labelClass}>{t("phone")}</span>
+          <span className={labelClass}>
+            {t("phone")} <span className="text-olive">*</span>
+          </span>
           <input
+            required
             type="tel"
             className={fieldClass}
             value={form.phone}

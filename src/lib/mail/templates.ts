@@ -13,7 +13,7 @@ const display = (value?: string | null): string =>
   value?.trim() ? value.trim() : CONTENT.emptyValueLabel;
 
 const formatDate = (date: Date): string =>
-  date.toLocaleDateString("bg-BG", {
+  date.toLocaleDateString("en-GB", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",

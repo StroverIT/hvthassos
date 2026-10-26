@@ -7,7 +7,7 @@ export type TSendMailInput = {
 
 export type TContactMailPayload = {
   name: string;
-  phone?: string | null;
+  phone: string;
   email: string;
   message: string;
 };
@@ -18,7 +18,7 @@ export type TInquiryMailPayload = {
   studioCount: number;
   apartmentCount: number;
   name: string;
-  phone?: string | null;
+  phone: string;
   email: string;
   additionalInfo?: string | null;
 };

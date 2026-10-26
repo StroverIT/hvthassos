@@ -11,7 +11,7 @@ const inquirySchema = z.object({
   studioCount: z.coerce.number().int().min(0).max(4),
   apartmentCount: z.coerce.number().int().min(0).max(4),
   name: z.string().min(2).max(120),
-  phone: z.string().max(40).optional(),
+  phone: z.string().trim().min(1).max(40),
   email: z.string().email(),
   additionalInfo: z.string().max(2000).optional(),
 });
@@ -54,7 +54,7 @@ export const createInquiry = async (
     studioCount: data.studioCount,
     apartmentCount: data.apartmentCount,
     name: data.name,
-    phone: data.phone || null,
+    phone: data.phone,
     email: data.email,
     additionalInfo: data.additionalInfo || null,
   };

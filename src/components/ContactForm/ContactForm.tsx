@@ -57,8 +57,9 @@ export const ContactForm: FC = () => {
           />
         </label>
         <label>
-          <span className={labelClass}>{t("phone")}</span>
+          <span className={labelClass}>{t("phone")} *</span>
           <input
+            required
             type="tel"
             className={fieldClass}
             value={form.phone}
