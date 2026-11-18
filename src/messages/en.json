@@ -207,6 +207,7 @@
   "footer": {
     "rights": "Holiday Villa Thassos",
     "license": "MHTE License",
-    "licenseNote": "Official license from the Greek Ministry of Tourism"
+    "licenseNote": "Official license from the Greek Ministry of Tourism",
+    "poweredBy": "Powered By"
   }
 }

@@ -107,6 +107,16 @@ export const Footer = async () => {
             </span>
           </p>
         </div>
+        <div className="mx-auto max-w-7xl px-4 pb-5 text-center text-xs text-foam/55 md:px-8">
+          <a
+            href={CONTENT.digistartUrlLabel}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition hover:text-sand"
+          >
+            {tFooter("poweredBy")} {CONTENT.digistartBrandLabel}
+          </a>
+        </div>
       </div>
     </footer>
   );
